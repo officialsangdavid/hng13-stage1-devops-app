@@ -4,15 +4,17 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package files first for caching
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install --production
 
-# Copy the rest of the app
+# Copy the rest of the files
 COPY . .
 
-# Expose port 3000 to the host
+# Expose port 3000
 EXPOSE 3000
 
-# Start the app
+# Run the app
 CMD ["npm", "start"]
